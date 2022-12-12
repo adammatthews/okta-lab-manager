@@ -1,0 +1,59 @@
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+
+a.custom{
+  color: inherit;
+  text-decoration:none;
+  }
+  li.nav-item.custom  {
+    padding-top:7px;
+  }
+
+main > .container {
+	padding: 60px 15px 0;
+  }
+  
+  .bd-placeholder-img {
+	  font-size: 1.125rem;
+	  text-anchor: middle;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  user-select: none;
+  }
+  
+  @media (min-width: 768px) {
+	  .bd-placeholder-img-lg {
+		  font-size: 3.5rem;
+	  }
+  }
+  
+  .field-label{
+    font-weight: 400;
+  }
+
+
+  .fishes
+  {
+    position:relative;
+    top: -170px;
+    z-index: 1;            
+    height: 90px;
+    max-width:100%;
+    object-fit: contain;
+    padding: 10px;
+  }
+  .img-card-bg{
+    opacity: 0.5;
+    min-height:250px;
+    max-height: 250px;
+    object-fit: cover;
+  }
+  .card-brand{
+    height: 400px;
+    overflow: hidden;
+  }
+  .card-bg-selected{
+    background-color:#e6f6fc;
+  }
