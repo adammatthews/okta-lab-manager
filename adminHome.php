@@ -34,7 +34,16 @@ if($key){
 <p>This service allows you to manage multiple different brands for your Okta tenant and set them with a single click.</p>
 <p>This tool also allows for a quick way to add new users to your tenant with random names.</p>
 
+<b>Version</b> 
+      <?php
 
+$output=null;
+$retval=null;
+exec('git log -1 | grep ^commit | cut -d " " -f 2', $output, $retval);
+// print_r($output);
+$output = substr($output[0], 0, 7);
+echo $output;
+      ?>
 <?php
 
 include 'includes/footer.php';

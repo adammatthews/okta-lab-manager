@@ -23,16 +23,7 @@
 
     ?> Brands!</span>
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 
-      <?php
-
-$output=null;
-$retval=null;
-exec('git log -1 | grep ^commit | cut -d " " -f 2', $output, $retval);
-// print_r($output);
-$output = substr($output[0], 0, 7);
-echo $output;
-      ?>
+     
     </div>
   </footer>
 </div>
