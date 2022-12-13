@@ -12,11 +12,12 @@ $lab_name = $_ENV['LAB_NAME'];
 $meta = '{
     "user_metadata": {
         "tokens": [{
-                "URL": "https://demo.okta.com",
-                "token": "00ka8487T5JRqOxzeP8JtdF9ywL6F-XxvWhOI2MbaC", 
+                "id" : 0,
+                "URL": "https://changeme.okta.com",
+                "token": "change-me-to-your-api-key", 
                 "selected" : 1, 
-                "email_domain": "atko.email", 
-                "user_domain": "atko.domain"
+                "email_domain": "changeme.email", 
+                "user_domain": "changeme.domain"
             }
           ], 
           "settings": {

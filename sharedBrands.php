@@ -135,8 +135,15 @@ $currentBrand = getBrands();
 	 echo '. Your URL or Tenant Code is incorrect.';
 	 echo '</div>';
    }else{
+	if(isset($currentBrand[0]->id)){
 		$cBrandId = $currentBrand[0]->id;
 		$cTheme = getThemes($cBrandId);
+	}else{
+		print('<div class="alert alert-warning" role="alert">');
+  		print('Potential issue with your tenant code');
+		print('</div>');
+	}
+		
    }
 ?>
 
@@ -148,7 +155,7 @@ $currentBrand = getBrands();
 
 		<div class="col-md-12 col-lg-6 col-xl-4 ">
 		<div class="card  mb-2 text-center card-brand <?php if(isset($brand["themeLogo"])){
-			if($cTheme[0]->logo == $brand["themeLogo"] ){
+			if(isset($cTheme[0]->logo) && $cTheme[0]->logo == $brand["themeLogo"] ){
 				print('card-bg-selected');
 			}
 		}?>">

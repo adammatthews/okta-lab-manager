@@ -20,19 +20,55 @@ $role_resp = json_decode($role->getBody()->__toString(), true, 512, JSON_THROW_O
 // print_r($role_resp);
 // echo $session->user["sub"];
 
-
 $key = array_search($session->user["sub"], array_column($role_resp, 'user_id'));
 
-var_dump($key);
+//var_dump($key);
+// if($key){
+//   echo "Admin";
+// }
 
+$db =  __DIR__ . "/myDatabase";
+$brandStore = new \SleekDB\Store('brands', __DIR__ . "/myDatabase", $dbConfig);
 
-if($key){
-  echo "Admin";
+$resp = $management->users()->getAll();
+    
+// Does the status code of the response indicate failure?
+if ($resp->getStatusCode() !== 200) {
+    die("API request failed.");
 }
+
+// Decode the JSON response into a PHP array:
+$resp = json_decode($resp->getBody()->__toString(), true, 512, JSON_THROW_ON_ERROR);
+//print("<pre>".print_r($resp,true)."</pre>");
   ?>
 
-<p>This service allows you to manage multiple different brands for your Okta tenant and set them with a single click.</p>
-<p>This tool also allows for a quick way to add new users to your tenant with random names.</p>
+<table class="table">
+<thead>
+  <tr>
+    <th scope="col">Email</th>
+    <th scope="col">Brand Count</th>
+    <th scope="col">Tokens Count</th>
+    <th scope="col">Last Login</th>
+    <th scope="col">Login Count</th>
+  </tr>
+</thead>
+<tbody>
+  <?php 
+  foreach($resp as $user){
+    $tokens =  $user["user_metadata"];
+    echo "<tr>";
+    echo "<th scope='row'>".$user["email"]."</th>";
+    $userBrands = $brandStore->findBy(["userID", "=", $user["user_id"]],["_id" => "asc"]);
+    echo "<td>".count($userBrands)."</td>";
+    echo "<td>".count($tokens["tokens"])."</td>";
+    echo "<td>".$user["last_login"]."</td>";
+    echo "<td>".$user["logins_count"]."</td>";
+    echo "</tr>";
+  }
+  ?>
+</tbody>
+</table>
+
 
 <b>Version</b> 
       <?php
