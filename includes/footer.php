@@ -10,7 +10,7 @@
   <!-- Main Footer -->
   <footer class="main-footer">
     <div class="col">
-    <strong>Copyright &copy; <?php echo date("Y"); ?> <a href="https://okta.am-serv.co.uk">AM SERV</a>.</strong>
+    <strong>Copyright &copy; <?php echo date("Y"); ?> <a href="https://am-serv.co.uk">AM SERV</a>.</strong>
     All rights reserved.
     <span >
     Managing 
