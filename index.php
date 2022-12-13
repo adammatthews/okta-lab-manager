@@ -9,16 +9,6 @@ use Aws\S3\S3Client;
 // get the Mixpanel class instance with your project token
 $mp = Mixpanel::getInstance("aa3c4bde1f50b8dfd21b4028a3ab5983", array("host" => "api-eu.mixpanel.com"));
 
-// Instantiate an Amazon S3 client.
-$s3Client = new S3Client([
-  'version' => 'latest',
-  'region'  => 'eu-west-2',
-  'credentials' => [
-  'key'    => '<<key>>',
-  'secret' => '<<key>>'
-  ]
-  ]);
-
 // Load our environment variables from the .env file:
 (Dotenv\Dotenv::createImmutable(__DIR__))->load();
 
