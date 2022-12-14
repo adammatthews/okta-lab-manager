@@ -329,3 +329,17 @@ function uploadFavicon($brandid,$themeid,$file) {
         return $response;
     }
 }
+
+// Code to update the Token array in the Auth0 User Metadata. Pass it a fully completed token array. 
+function updateTokenArray($tokenArray){
+    global $management;
+    global $session;
+
+    $str = '{
+        "user_metadata": {
+            "tokens": '.json_encode($tokenArray).'
+        }
+        }';
+    $json_meta = json_decode($str, true);
+    $update_resp = $management->users()->update($session->user["sub"], $json_meta);
+}

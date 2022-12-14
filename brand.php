@@ -154,7 +154,7 @@ $currentBrand = getBrands();
 		?>
 
 		<div class="col-md-12 col-lg-6 col-xl-4 ">
-		<div class="card  mb-2 text-center card-brand <?php if(isset($brand["themeLogo"])){
+		<div class="card  mb-2 text-center card-brand <?php if(isset($brand["themeLogo"]) && isset($cTheme)){
 			if(isset($currentBrand) && $cTheme[0]->logo == $brand["themeLogo"] ){
 				print('card-bg-selected');
 			}

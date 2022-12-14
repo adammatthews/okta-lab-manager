@@ -49,14 +49,16 @@ function func()
   ];  
     array_push($resp1[0]['user_metadata']["tokens"],$array);
 
-$strUpdate = '{
-  "user_metadata": {
-      "tokens": '.json_encode($resp1[0]['user_metadata']["tokens"]).'
-  }
-}';
+    updateTokenArray($resp1[0]['user_metadata']["tokens"]);
 
-$json_meta = json_decode($strUpdate, true);
-$update_resp = $management->users()->update($session->user["sub"], $json_meta);
+// $strUpdate = '{
+//   "user_metadata": {
+//       "tokens": '.json_encode($resp1[0]['user_metadata']["tokens"]).'
+//   }
+// }';
+
+// $json_meta = json_decode($strUpdate, true);
+// $update_resp = $management->users()->update($session->user["sub"], $json_meta);
 
 print('<div class="alert alert-success" role="alert">');
 print('New tenant token for "'. $_REQUEST['URL'].'" has been successfully added. <a href="'.ROUTE_URL_INDEX.'/manageTenants">Go back.</a>');

@@ -58,28 +58,17 @@ function func()
     }
   }
 
-$str = '{
-  "user_metadata": {
-      "tokens": '.json_encode($resp1[0]['user_metadata']["tokens"]).'
-  }
-}';
-
-$json_meta = json_decode($str, true);
-$update_resp = $management->users()->update($session->user["sub"], $json_meta);
+updateTokenArray($resp1[0]['user_metadata']["tokens"]);
 $mp->track("Tenant Set", array("label" => "tenant-set"));
 ?>
 <script type="text/javascript" >
         window.open('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>', '_self');
 </script>
 <?php
-//header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");// Refresh the page to get the right data to display post update.
-      //header("Refresh:0");
-  //  exit;
   }
 
   if($_REQUEST['action_type'] == "update"){
-
-    echo $_REQUEST['URL'];
+    //echo $_REQUEST['URL'];
     for($i = 0; $i < count($resp1[0]['user_metadata']["tokens"]); ++$i) {
       if($resp1[0]['user_metadata']["tokens"][$i]["id"] == $_REQUEST['id'] ){
         $resp1[0]['user_metadata']["tokens"][$i]["URL"] = $_REQUEST['URL'];
@@ -91,21 +80,42 @@ $mp->track("Tenant Set", array("label" => "tenant-set"));
       }
     }
 
-    $str = '{
-      "user_metadata": {
-          "tokens": '.json_encode($resp1[0]['user_metadata']["tokens"]).'
-      }
-    }';
-  
-    $json_meta = json_decode($str, true);
-    $update_resp = $management->users()->update($session->user["sub"], $json_meta);
+    updateTokenArray($resp1[0]['user_metadata']["tokens"]);
     $mp->track("Tenant Updated", array("label" => "tenant-update"));
     ?>
     <script type="text/javascript" >
             window.open('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>', '_self');
     </script>
     <?php
-  }
+    }
+
+    if($_REQUEST['action_type'] == "delete"){ // Delete Token from account
+      if(count($resp1[0]['user_metadata']["tokens"]) > 0){  // if we have more than one token then...
+        
+        for($i = 0; $i < count($resp1[0]['user_metadata']["tokens"]); ++$i) {
+          if($resp1[0]['user_metadata']["tokens"][$i]["id"] == $_REQUEST['id'] ){
+            unset($resp1[0]['user_metadata']["tokens"][$i]);
+            $resp1[0]['user_metadata']["tokens"] = array_values($resp1[0]['user_metadata']["tokens"]);
+          }else{
+            // $resp1[0]['user_metadata']["tokens"][$i]["selected"] = 0;
+          }
+        }
+        updateTokenArray($resp1[0]['user_metadata']["tokens"]);
+        $mp->track("Tenant Deleted", array("label" => "tenant-delete"));
+        ?>
+        <script type="text/javascript" >
+                window.open('<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>', '_self');
+        </script>
+        <?php
+      }else{
+        // we have only 1 token, dont delete it. Throw warning?
+        echo '<div class="alert alert-danger" role="alert">';
+        echo 'You only have one token, this cant be deleted. Please edit it if you want to remove data.';
+        echo '</div>';
+      }
+     
+   
+    }
 }
 ?>
 
@@ -135,7 +145,8 @@ $mp->track("Tenant Set", array("label" => "tenant-set"));
 <?php 
   if (!empty($resp1)) {
     if(isset($resp[0]['user_metadata']["tokens"])){ // if we have tokens set
-      foreach ($resp[0]['user_metadata']["tokens"] as $token){ 
+      // print_r($resp[0]['user_metadata']["tokens"]);
+      foreach ($resp[0]['user_metadata']["tokens"] as $key => $token){ 
 ?>
 
 <div class="col-sm-3">
@@ -152,7 +163,7 @@ $mp->track("Tenant Set", array("label" => "tenant-set"));
       ?>">
 
       </form>
-      <button name="edit_tenant" value="<?php echo $token["id"];?>" id="edit_tenant" class="btn btn-success" style="float:right">Edit Tenant</button>
+      <button name="edit_tenant" value="<?php echo $key;?>" id="edit_tenant" class="btn btn-success" style="float:right">Edit Tenant</button>
     </div>
     <!-- <div class="card-footer">
       The footer of the card
@@ -205,8 +216,9 @@ $mp->track("Tenant Set", array("label" => "tenant-set"));
   </div>
   <input type="hidden" id="id" name="id" value="">
   <button type="submit" name="action_type" value="update" class="btn btn-primary">Update Settings</button>
-
+  <button type="submit" name="action_type" value="delete" class="btn btn-danger">Delete Tenant</button>
 </form>
+
     </div>
     <div style="margin:10px"> <!-- Spacer --> </div>
 
@@ -226,17 +238,13 @@ $(document).ready(function() {
       window.scrollTo(0, top);
       
       let idSel =  $(this).val();
+      $('#URL').val(javascript_array[idSel]["URL"]);
+      $('#id').val(javascript_array[idSel]["id"]);
+      $('#OrigURL').val(javascript_array[idSel]["URL"]);
+      $('#token').val(javascript_array[idSel]["token"]);
+      $('#email_domain').val(javascript_array[idSel]["email_domain"]);
+      $('#user_domain').val(javascript_array[idSel]["user_domain"]);
 
-        for (let i = 0; javascript_array.length; i++) {
-          if (javascript_array[i]["id"] == idSel){
-            $('#URL').val(javascript_array[i]["URL"]);
-            $('#id').val(javascript_array[i]["id"]);
-            $('#OrigURL').val(javascript_array[i]["URL"]);
-            $('#token').val(javascript_array[i]["token"]);
-            $('#email_domain').val(javascript_array[i]["email_domain"]);
-            $('#user_domain').val(javascript_array[i]["user_domain"]);
-          }
-        }
     }); 
 });
 </script>
