@@ -1,6 +1,6 @@
 # Okta Lab Manager
 
-This tool is designed to help you with your Okta lab. This is currently available at https://okta.am-serv.co.uk to sign up for. 
+This tool is designed to help you with your Okta lab. This is currently available at https://olm.fastlogin.uk to sign up for and use. 
 
 # Set Up
 
