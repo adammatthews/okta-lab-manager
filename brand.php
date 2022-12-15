@@ -156,15 +156,23 @@ $currentBrand = getBrands();
 		<div class="col-md-12 col-lg-6 col-xl-4 ">
 		<div class="card  mb-2 text-center card-brand <?php if(isset($brand["themeLogo"]) && isset($cTheme)){
 			if(isset($currentBrand) && $cTheme[0]->logo == $brand["themeLogo"] ){
-				print('card-bg-selected');
+				print('card-primary');
 			}
 		}?>">
 		<div class="card-header">
 		<?php echo $brand["Name"];?>
+
+		<?php if(isset($brand["themeLogo"]) && isset($cTheme)){
+			if(isset($currentBrand) && $cTheme[0]->logo == $brand["themeLogo"] ){
+				//echo '<span class="badge badge-pill badge-primary float-right">Current Brand</span>';
+			}
+		}?>
+
 		</div>
 		<div class="card-body">
 			<img class="card-img-top img-card-bg" src="<?php echo $brand["Background"];?>" alt="Background">
 			<img class="fishes" src="<?php echo $brand["Logo"];?>" alt="Logo">
+			
 			<!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
 		</div>
 		<div class="card-footer text-muted">
@@ -217,7 +225,8 @@ $currentBrand = getBrands();
 			<div class="col-md-12 col-lg-6 col-xl-4">
 				<div class="card mb-2 text-center">
 				<div class="card-body">            
-					<p class="card-text"><a href="<?php echo ROUTE_URL_INDEX;?>/brandAdd">Add Brand</a></p>
+					<p class="card-text"><a href="<?php echo ROUTE_URL_INDEX;?>/brandAdd" class="btn btn-secondary" role="button" aria-pressed="true">Add Brand</a></p>
+
 				</div>
 				</div>
 

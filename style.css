@@ -55,5 +55,5 @@ main > .container {
     overflow: hidden;
   }
   .card-bg-selected{
-    background-color:#e6f6fc;
+    background-color:#e6f6fc !important;
   }

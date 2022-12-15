@@ -155,15 +155,20 @@ $mp->track("Tenant Set", array("label" => "tenant-set"));
       <h3 class="card-title"><?php echo $token["URL"];?></h3>
     </div>
     <div class="card-body">
-    <form action="" method="POST" name="tenants">
-
-    <button type="submit" name="action_type" value="set" class="btn btn-primary" <?php  if($token["selected"]){ echo "disabled";}?>>Set as Active Tenant</button>
-        <input type="hidden" id="cardID" class="form-control"  name="cardID" value="<?php
-          echo $token["id"];      
-      ?>">
-
+    <span style="float: left;  margin-left:10px;">
+      <form action="" method="POST" name="tenants">
+      <button type="submit" name="action_type" value="set" class="btn btn-primary" <?php  if($token["selected"]){ echo "disabled";}?>>
+      <?php  if($token["selected"]){
+        echo "Current Token";
+      }else{
+        echo "Set as Active Tenant";
+      }?></button>
+          <input type="hidden" id="cardID" class="form-control"  name="cardID" value="<?php
+            echo $token["id"];      
+        ?>">
       </form>
-      <button name="edit_tenant" value="<?php echo $key;?>" id="edit_tenant" class="btn btn-success" style="float:right">Edit Tenant</button>
+    </span>
+    <button name="edit_tenant" value="<?php echo $key;?>" id="edit_tenant" class="btn btn-success" style="float:right">Edit Tenant</button>
     </div>
     <!-- <div class="card-footer">
       The footer of the card
